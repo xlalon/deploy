@@ -20,12 +20,12 @@ else
     sudo apt install -y python${PY_VERSION}
     sudo apt install -y python${PY_VERSION}-dev
     sudo apt install -y python${PY_VERSION}-pip
+    sudo apt install -y python${PY_VERSION}-venv
 fi
 
 info "Checking Python Virtualenv..."
 if [ ! -d ${VENV_DIR} ]; then
     info "  Installing Python Virtualenv..."
-    sudo apt install -y python${PY_VERSION}-venv
     python${PY_VERSION} -m venv ${VENV_DIR}
 fi
 
@@ -46,4 +46,4 @@ while true; do
   fi
 done
 
-nohup ${VENV_DIR}/bin/gunicorn run:app -w 1 -b 0.0.0.0:9101 --access-logfile gunicorn.log &
+nohup ${VENV_DIR}/bin/gunicorn wsgi:app -w 1 -b 0.0.0.0:9101 --access-logfile gunicorn.log &

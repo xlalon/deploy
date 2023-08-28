@@ -54,6 +54,7 @@ class RemoteCommits(GitResource):
         result = []
         for repo_dir in self.git_repo_dirs(repo):
             git_repo = self._GitRepo(repo_dir)
+            git_repo.fetch()
             info = git_repo.remote_commits()
             result.append({'repo': repo, 'info': info})
             break
